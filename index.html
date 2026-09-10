@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>THE KOTELNIKOV THEOREM</title>
+<style>body{font-family:sans-serif;background:#2a0c16;color:#fff4f0;margin:0} .wrap{max-width:900px;margin:auto;padding:24px} a{color:#f4c740} canvas{width:100%;height:180px;background:#4a1822;border-radius:8px} input{background:#1a080e;color:#fff;border:1px solid #844;padding:6px;width:80px} .card{border:1px solid #844;border-radius:12px;padding:14px;margin:12px 0;background:#3a1420} code{color:#ffd0c8}</style></head>
+<body><div class="wrap"><p>WORLD IV · SONIA · THE NUMBER</p><h1>THE KOTELNIKOV THEOREM</h1>
+<p><a href="https://davidwise01.github.io/ud0/world4/">◄ SONIA</a></p>
+<div class="card"><b>AMBER source</b> — V. A. Kotelnikov, 1933. Original not re-read this crossing.</div>
+<div class="card"><b>LIT panel</b><br>f <input id="f" type="number" value="3" step="0.5"> B <input id="B" type="number" value="4" step="0.5"> fs <input id="fs" type="number" value="8" step="0.5"><canvas id="c" width="860" height="180"></canvas><div id="out">…</div></div>
+<div class="card"><b>WALL</b> truncated series, not infinite cardinal.</div>
+<div class="card"><b>SEAL</b><br><code>7614786d80f0e286f0d4ba6ca9786ef1d26aae11b2edfbbfea244cd0863611f4</code></div>
+<p>ROOT0 · host rgiskard01-fiddler/the-kotelnikov</p></div>
+<script>function sinc(x){return Math.abs(x)<1e-12?1:Math.sin(Math.PI*x)/(Math.PI*x)}
+function run(){var f=+fEl.value,B=+bEl.value,fs=+fsEl.value,c=document.getElementById('c'),ctx=c.getContext('2d'),W=c.width,H=c.height;ctx.fillStyle='#4a1822';ctx.fillRect(0,0,W,H);var T=2,N=Math.floor(fs*T)+1,S=[];for(var n=0;n<N;n++)S.push({t:n/fs,x:Math.sin(2*Math.PI*f*n/fs)});var maxe=0,pts=400;ctx.beginPath();for(var i=0;i<pts;i++){var t=i*T/(pts-1),xh=0;for(var n=0;n<N;n++)xh+=S[n].x*sinc(fs*(t-S[n].t));var e=Math.abs(Math.sin(2*Math.PI*f*t)-xh);if(e>maxe)maxe=e;var px=i/(pts-1)*W,py=H/2-xh*H*0.38;i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.strokeStyle='#6ec7ff';ctx.lineWidth=2;ctx.stroke();S.forEach(function(s){ctx.fillStyle='#f4c740';ctx.fillRect(s.t/T*W-2,H/2-s.x*H*0.38-2,4,4)});var nyq=fs+1e-9>=2*f,band=f<=B+1e-9,msg='f='+f+' B='+B+' fs='+fs+' err='+maxe.toFixed(4);if(!band)out.textContent='WALL '+msg;else if(nyq&&maxe<0.08)out.textContent='LIT '+msg;else if(!nyq)out.textContent='LIT alias '+msg;else{out.textContent='FAIL '+msg;throw new Error('reconstruct failed')}}
+var fEl=document.getElementById('f'),bEl=document.getElementById('B'),fsEl=document.getElementById('fs'),out=document.getElementById('out');
+[fEl,bEl,fsEl].forEach(function(el){el.addEventListener('input',run)});run()</script></body></html>
